@@ -7,8 +7,7 @@ import javax.swing.JTextPane;
 
 public class HelpFrame extends JFrame {
 
-	private static final long serialVersionUID = 7929370838154134163L;
-
+	private static final long serialVersionUID = -1934594518130287814L;
 	JTextPane textPane;
 	JScrollPane scroll;
 	JLabel label;
