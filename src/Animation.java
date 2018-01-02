@@ -244,7 +244,7 @@ public class Animation extends JComponent {
 		appendToPane(textArea, "-- Producer Lock delay...\n", Color.black);
 	}
 
-	public void sittingInStorageSlotOne(int id, boolean amISignalling)
+	public void sittingInStorage(int slot, int id, boolean amISignalling)
 	{
 		Rectangle2D.Double fruitFromHashMap;
 
@@ -258,54 +258,10 @@ public class Animation extends JComponent {
 		synchronized(hashMap)
 		{
 			fruitFromHashMap = hashMap.get(id);
-			fruitFromHashMap.x = 495; 
+			fruitFromHashMap.x = 415 + 80 * slot; 
 			fruitFromHashMap.y = 205;
 		}
-
-		repaint();
-		//this.bufferSlotOne = new Rectangle2D.Double(465, 190, 75, 75);
-
-	}
-
-	public void sittingInStorageSlotTwo(int id, boolean amISignalling)
-	{
-		Rectangle2D.Double fruitFromHashMap;
-
-		waitForResume();	
-		if (amISignalling == true)
-		{
-			appendToPane(textArea, "P.signal // that there is Fruit\n", Color.BLUE);
-		}
-
-		synchronized(hashMap)
-		{
-			fruitFromHashMap = hashMap.get(id);
-			fruitFromHashMap.x = 575; 
-			fruitFromHashMap.y = 205;
-		}
-
-		repaint();
-	}
-
-	public void sittingInStorageSlotThree(int id, boolean amISignalling)
-	{
-		Rectangle2D.Double fruitFromHashMap;
-
-		waitForResume();	
-
-		if (amISignalling == true)
-		{
-			appendToPane(textArea, "P.signal // that there is Fruit\n", Color.BLUE);
-		}
-
-		synchronized(hashMap)
-		{
-			fruitFromHashMap = hashMap.get(id);
-			fruitFromHashMap.x = 655; 
-			fruitFromHashMap.y = 205;
-		}
-
-		repaint();
+		repaint();	
 	}
 
 	public void leavingStorage(int id, int idConsumer)

@@ -51,19 +51,19 @@ public class Storage {
 		if(doIHaveSpaceThirdSlot == true)
 		{
 			slotThree = fruit;
-			fruit.iAmInStorageSlotThree(true);
+			fruit.iAmInStorage(3, true);
 			doIHaveSpaceThirdSlot = false;
 		}
 		else if(doIHaveSpaceSecondSlot == true)
 		{
 			slotTwo = fruit;
-			fruit.iAmInStorageSlotTwo(true);
+			fruit.iAmInStorage(2, true);
 			doIHaveSpaceSecondSlot = false;
 		}
 		else if(doIHaveSpaceFirstSlot == true)
 		{
 			slotOne = fruit;
-			fruit.iAmInStorageSlotOne(true);
+			fruit.iAmInStorage(1, true);
 			doIHaveSpaceFirstSlot = false;
 		}
 
@@ -108,7 +108,7 @@ public class Storage {
 		if(doIHaveSpaceSecondSlot == false)
 		{
 			slotThree = slotTwo;
-			slotThree.iAmInStorageSlotThree(false);
+			slotThree.iAmInStorage(3, false);
 			doIHaveSpaceThirdSlot = false;
 			doIHaveSpaceSecondSlot = true;
 		}
@@ -116,7 +116,7 @@ public class Storage {
 		if(doIHaveSpaceFirstSlot == false)
 		{
 			slotTwo = slotOne;
-			slotTwo.iAmInStorageSlotTwo(false);
+			slotTwo.iAmInStorage(2, false);
 			doIHaveSpaceSecondSlot = false;
 			doIHaveSpaceFirstSlot = true;
 		}

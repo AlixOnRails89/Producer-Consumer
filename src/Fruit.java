@@ -40,7 +40,7 @@ public class Fruit {
 		return value;
 	}
 
-	public void iAmInStorageSlotOne(boolean amISignalling)
+	public void iAmInStorage(int slot, boolean amISignalling)
 	{
 		int value = sliderValue();
 
@@ -50,36 +50,8 @@ public class Fruit {
 			e.printStackTrace();
 		}
 
-		myAnimation.sittingInStorageSlotOne(ID, amISignalling);	
+		myAnimation.sittingInStorage(slot, ID, amISignalling);	
 	}
-
-	public void iAmInStorageSlotTwo(boolean amISignalling)
-	{
-		int value = sliderValue();
-
-		try {
-			TimeUnit.MILLISECONDS.sleep(value);
-		} catch (InterruptedException e) {			
-			e.printStackTrace();
-		}
-
-		myAnimation.sittingInStorageSlotTwo(ID, amISignalling);	
-	}
-
-	public void iAmInStorageSlotThree(boolean amISignalling)
-	{
-		int value = sliderValue();
-
-		try {
-			TimeUnit.MILLISECONDS.sleep(value);
-		} catch (InterruptedException e) {			
-			e.printStackTrace();
-		}
-
-		myAnimation.sittingInStorageSlotThree(ID, amISignalling);	
-	}
-
-
 
 	public void iAmLeavingStorage(int consumerID)
 	{
