@@ -7,22 +7,32 @@ public class Storage {
 
 
 	// the state of the buffer, the default value is false which means the buffer is null.
-	private boolean doIHaveSpace = true;
-	private Fruit contents;
+
+	private boolean doIHaveSpaceFirstSlot = true;
+	private boolean doIHaveSpaceSecondSlot = true;
+	private boolean doIHaveSpaceThirdSlot = true;
+
+	private Fruit slotOne;
+	private Fruit slotTwo;
+	private Fruit slotThree;
+
 	private Animation animation;
 	private String nameOfBuffer;
 
 	public Storage(Animation myAnimation) 
 	{
+
 		this.animation = myAnimation;
 		this.nameOfBuffer = myAnimation.creatingBuffer(nameOfBuffer);	
 	}
 
-	public synchronized void storeFruit(Fruit value) // If there is space then add a Fruit.
+	public synchronized void storeFruit(Fruit fruit) // If there is space then add a Fruit.
 	{
 		animation.showLockProducer();
 
-		while (doIHaveSpace == false) 
+		while ((doIHaveSpaceFirstSlot == false) &&
+				(doIHaveSpaceSecondSlot == false) &&
+				(doIHaveSpaceThirdSlot == false))  
 		{
 			//Producer finds there is no space in Storage and gives up Lock and waits for notification.
 			animation.hideLockProducer();
@@ -34,13 +44,28 @@ public class Storage {
 				animation.hideWaitProducer();
 			} catch (InterruptedException e) {}
 		}
+
 		//Producer finds there is space available in Storage and stores the Fruit.
 		animation.producerFindsSpace();
-		this.contents = value;
-		
-		value.iAmInStorage(); // 
 
-		doIHaveSpace = false;
+		if(doIHaveSpaceThirdSlot == true)
+		{
+			slotThree = fruit;
+			fruit.iAmInStorageSlotThree(true);
+			doIHaveSpaceThirdSlot = false;
+		}
+		else if(doIHaveSpaceSecondSlot == true)
+		{
+			slotTwo = fruit;
+			fruit.iAmInStorageSlotTwo(true);
+			doIHaveSpaceSecondSlot = false;
+		}
+		else if(doIHaveSpaceFirstSlot == true)
+		{
+			slotOne = fruit;
+			fruit.iAmInStorageSlotOne(true);
+			doIHaveSpaceFirstSlot = false;
+		}
 
 		//Producer signals to waiting threads that space in Storage has changed.
 		notifyAll(); // Wakes up all threads that are wait();
@@ -57,11 +82,13 @@ public class Storage {
 	 */
 	public synchronized Fruit retrieveFruit(int consumerID) 
 	{
+		Fruit fruitFromSlotThree = null;
+
 		//Consumer has acquired Lock on Storage
 		animation.showLockConsumer();
 
 		//Consumer checks if there is Fruit available in Storage. 
-		while (doIHaveSpace == true)
+		while (doIHaveSpaceThirdSlot == true)
 		{
 			//Consumer finds there is no Fruit in Storage and gives up Lock and waits for notification.			
 			animation.hideLockConsumer();
@@ -74,10 +101,25 @@ public class Storage {
 			} catch (InterruptedException e) {}	
 		}
 
-		//Consumer finds there is a Fruit in Storage and removes it from Storage.
-		Fruit fruit = contents;
-		fruit.iAmLeavingStorage(consumerID);
-		doIHaveSpace = true;
+		fruitFromSlotThree = slotThree;
+		fruitFromSlotThree.iAmLeavingStorage(consumerID);
+		doIHaveSpaceThirdSlot = true;
+
+		if(doIHaveSpaceSecondSlot == false)
+		{
+			slotThree = slotTwo;
+			slotThree.iAmInStorageSlotThree(false);
+			doIHaveSpaceThirdSlot = false;
+			doIHaveSpaceSecondSlot = true;
+		}
+
+		if(doIHaveSpaceFirstSlot == false)
+		{
+			slotTwo = slotOne;
+			slotTwo.iAmInStorageSlotTwo(false);
+			doIHaveSpaceSecondSlot = false;
+			doIHaveSpaceFirstSlot = true;
+		}
 
 		//Consumer signals to waiting threads that space in Storage has changed.
 		notifyAll();
@@ -85,6 +127,6 @@ public class Storage {
 		animation.hideLockConsumer();
 		animation.givesUpLockConsumer();
 
-		return fruit;
+		return fruitFromSlotThree;
 	}
 }
