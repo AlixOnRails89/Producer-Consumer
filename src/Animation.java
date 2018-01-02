@@ -250,7 +250,7 @@ public class Animation extends JComponent {
 
 		waitForResume();		
 
-		if (amISignalling == true)
+		if (amISignalling)
 		{
 			appendToPane(textArea, "P.signal // that there is Fruit\n", Color.BLUE);
 		}

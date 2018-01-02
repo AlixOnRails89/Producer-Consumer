@@ -30,9 +30,8 @@ public class Storage {
 	{
 		animation.showLockProducer();
 
-		while ((doIHaveSpaceFirstSlot == false) &&
-				(doIHaveSpaceSecondSlot == false) &&
-				(doIHaveSpaceThirdSlot == false))  
+		// when the first slot is full then wait because they all will be full
+		while (!doIHaveSpaceFirstSlot)
 		{
 			//Producer finds there is no space in Storage and gives up Lock and waits for notification.
 			animation.hideLockProducer();
@@ -48,19 +47,19 @@ public class Storage {
 		//Producer finds there is space available in Storage and stores the Fruit.
 		animation.producerFindsSpace();
 
-		if(doIHaveSpaceThirdSlot == true)
+		if(doIHaveSpaceThirdSlot)
 		{
 			slotThree = fruit;
 			fruit.iAmInStorage(3, true);
 			doIHaveSpaceThirdSlot = false;
 		}
-		else if(doIHaveSpaceSecondSlot == true)
+		else if(doIHaveSpaceSecondSlot)
 		{
 			slotTwo = fruit;
 			fruit.iAmInStorage(2, true);
 			doIHaveSpaceSecondSlot = false;
 		}
-		else if(doIHaveSpaceFirstSlot == true)
+		else if(doIHaveSpaceFirstSlot)
 		{
 			slotOne = fruit;
 			fruit.iAmInStorage(1, true);
@@ -88,7 +87,7 @@ public class Storage {
 		animation.showLockConsumer();
 
 		//Consumer checks if there is Fruit available in Storage. 
-		while (doIHaveSpaceThirdSlot == true)
+		while (doIHaveSpaceThirdSlot)
 		{
 			//Consumer finds there is no Fruit in Storage and gives up Lock and waits for notification.			
 			animation.hideLockConsumer();
@@ -105,7 +104,7 @@ public class Storage {
 		fruitFromSlotThree.iAmLeavingStorage(consumerID);
 		doIHaveSpaceThirdSlot = true;
 
-		if(doIHaveSpaceSecondSlot == false)
+		if(!doIHaveSpaceSecondSlot)
 		{
 			slotThree = slotTwo;
 			slotThree.iAmInStorage(3, false);
@@ -113,7 +112,7 @@ public class Storage {
 			doIHaveSpaceSecondSlot = true;
 		}
 
-		if(doIHaveSpaceFirstSlot == false)
+		if(!doIHaveSpaceFirstSlot)
 		{
 			slotTwo = slotOne;
 			slotTwo.iAmInStorage(2, false);
