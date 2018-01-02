@@ -8,7 +8,7 @@ import javax.swing.JTextPane;
 
 public class WelcomeFrame extends JFrame {
 
-	private static final long serialVersionUID = 79293708874134163L;
+	private static final long serialVersionUID = 7341592366168640756L;
 	JTextPane textPane;
 	JScrollPane scroll;
 	JLabel label;

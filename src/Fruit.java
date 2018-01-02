@@ -40,8 +40,7 @@ public class Fruit {
 		return value;
 	}
 
-	public void iAmInStorage()
-
+	public void iAmInStorage(int slot, boolean amISignalling)
 	{
 		int value = sliderValue();
 
@@ -51,7 +50,7 @@ public class Fruit {
 			e.printStackTrace();
 		}
 
-		myAnimation.sittingInStorage(ID);	
+		myAnimation.sittingInStorage(slot, ID, amISignalling);	
 	}
 
 	public void iAmLeavingStorage(int consumerID)

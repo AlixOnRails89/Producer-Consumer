@@ -44,7 +44,9 @@ public class Animation extends JComponent {
 	private Map<Integer, Rectangle2D.Double> hashMapProducedItems = new HashMap<Integer, Rectangle2D.Double>();
 	private Map<Integer, Rectangle2D.Double> hashMapConsumedItems = new HashMap<Integer, Rectangle2D.Double>();
 	private Shape consumerShapeThree;
-	private Shape buffer;
+	private Shape bufferSlotOne;
+	private Shape bufferSlotTwo;
+	private Shape bufferSlotThree;
 	private Shape lockProducer;
 	private Shape lockConsumer;
 	private Boolean displayLockProducer;
@@ -133,7 +135,7 @@ public class Animation extends JComponent {
 	{
 		int producerID = 0;
 
-		this.producerShapeOne = new Rectangle2D.Double(100, 75, 150,150);
+		this.producerShapeOne = new Rectangle2D.Double(100, 75, 150, 150);
 		producerID = nextProducerID++;
 
 		return producerID;			
@@ -148,9 +150,11 @@ public class Animation extends JComponent {
 		return consumerID;
 	}
 
-	public  String creatingBuffer(String name)
-	{		
-		this.buffer = new Rectangle2D.Double(545, 190, 75, 75);
+	public  String creatingBuffer()
+	{
+		this.bufferSlotOne = new Rectangle2D.Double(465, 190, 75, 75);
+		this.bufferSlotTwo = new Rectangle2D.Double(545, 190, 75, 75);
+		this.bufferSlotThree = new Rectangle2D.Double(625, 190, 75, 75);
 		StringBuilder sb = new StringBuilder();
 
 		sb.append("Buffer");
@@ -167,7 +171,8 @@ public class Animation extends JComponent {
 		int width = randomWidthShape();
 		int height = randomHeightShape();
 		Rectangle2D.Double shapeObject =  new Rectangle2D.Double(150, 175, width, height);
-		Rectangle2D.Double copyOfShapeObject = new Rectangle2D.Double(shapeObject.getX(), shapeObject.getY(), shapeObject.getWidth(), shapeObject.getHeight());
+		Rectangle2D.Double copyOfShapeObject = new Rectangle2D.Double(shapeObject.getX(), shapeObject.getY(),
+				shapeObject.getWidth(), shapeObject.getHeight());
 
 		waitForResume();
 		repaint();
@@ -184,7 +189,7 @@ public class Animation extends JComponent {
 			hashMapProducedItems.put(copyOfShapeObjectID, copyOfShapeObject);
 		}
 		appendToPane(textArea, "-- Producer has produced a Fruit\n", Color.BLACK);
-		
+
 		return shapeID;
 	}
 
@@ -209,15 +214,15 @@ public class Animation extends JComponent {
 		synchronized(hashMap) {
 			object = hashMap.get(fruitID); 
 		}
-		while(object.x < 500)
+		while(object.x < 410)
 		{
 			waitForResume();
-			object.x += (500-150)*producerSlider.getValue()/1000.0;
+			object.x += (410-150)*producerSlider.getValue()/1000.0;
 			object.y += (205-175)*producerSlider.getValue()/1000.0;
 
-			if(object.x > 500)
+			if(object.x > 410)
 			{	
-				object.x = 500;
+				object.x = 410;
 				object.y = 205;	
 			}
 
@@ -239,21 +244,24 @@ public class Animation extends JComponent {
 		appendToPane(textArea, "-- Producer Lock delay...\n", Color.black);
 	}
 
-	public void sittingInStorage(int id)
+	public void sittingInStorage(int slot, int id, boolean amISignalling)
 	{
 		Rectangle2D.Double fruitFromHashMap;
 
 		waitForResume();		
-		appendToPane(textArea, "P.signal // that there is Fruit\n", Color.BLUE);
+
+		if (amISignalling)
+		{
+			appendToPane(textArea, "P.signal // that there is Fruit\n", Color.BLUE);
+		}
 
 		synchronized(hashMap)
 		{
 			fruitFromHashMap = hashMap.get(id);
-			fruitFromHashMap.x = 573; 
+			fruitFromHashMap.x = 415 + 80 * slot; 
 			fruitFromHashMap.y = 205;
 		}
-
-		repaint();
+		repaint();	
 	}
 
 	public void leavingStorage(int id, int idConsumer)
@@ -264,7 +272,7 @@ public class Animation extends JComponent {
 		synchronized(hashMap)
 		{
 			fruitFromHashMap = hashMap.get(id);
-			fruitFromHashMap.x = 646;
+			fruitFromHashMap.x = 730;
 			fruitFromHashMap.y = 205;
 		}
 
@@ -283,11 +291,11 @@ public class Animation extends JComponent {
 		{
 			object = hashMap.get(ID); 
 		}
-		
+
 		while(object.x < 990)
 		{
 			waitForResume();
-			object.x += (990-646)*consumerSlider.getValue()/1000.0;
+			object.x += (990-730)*consumerSlider.getValue()/1000.0;
 			object.y += (170-205)*consumerSlider.getValue()/1000.0;
 
 			try {
@@ -295,7 +303,7 @@ public class Animation extends JComponent {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			
+
 			repaint();
 		}
 
@@ -443,7 +451,15 @@ public class Animation extends JComponent {
 
 		g2.setColor(Color.white);
 		g2.setStroke(new BasicStroke(10));
-		g2.draw(buffer);
+		g2.draw(bufferSlotOne);
+
+		g2.setColor(Color.white);
+		g2.setStroke(new BasicStroke(10));
+		g2.draw(bufferSlotTwo);
+
+		g2.setColor(Color.white);
+		g2.setStroke(new BasicStroke(10));
+		g2.draw(bufferSlotThree);
 
 		if (displayLockProducer) 
 		{

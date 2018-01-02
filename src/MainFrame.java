@@ -25,7 +25,7 @@ import javax.swing.text.StyleContext;
 
 public class MainFrame extends JFrame implements ActionListener  {
 
-	private static final long serialVersionUID = -7889539649354566976L;
+	private static final long serialVersionUID = -7821124202230340655L;
 	private JTextPane textArea;
 	private Animation myAnimation;
 	private JSlider producerSlider;
