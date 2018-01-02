@@ -19,11 +19,11 @@ public class Storage {
 	private Animation animation;
 	private String nameOfBuffer;
 
-	public Storage(Animation myAnimation) 
+	public Storage(Animation myAnimation)
 	{
 
 		this.animation = myAnimation;
-		this.nameOfBuffer = myAnimation.creatingBuffer(nameOfBuffer);	
+		this.nameOfBuffer = myAnimation.creatingBuffer();	
 	}
 
 	public synchronized void storeFruit(Fruit fruit) // If there is space then add a Fruit.

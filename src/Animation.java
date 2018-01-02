@@ -150,7 +150,7 @@ public class Animation extends JComponent {
 		return consumerID;
 	}
 
-	public  String creatingBuffer(String name)
+	public  String creatingBuffer()
 	{
 		this.bufferSlotOne = new Rectangle2D.Double(465, 190, 75, 75);
 		this.bufferSlotTwo = new Rectangle2D.Double(545, 190, 75, 75);
