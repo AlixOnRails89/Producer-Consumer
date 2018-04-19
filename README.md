@@ -1,24 +1,12 @@
-# Producer-Consumer
+# The Producer-Consumer problem
 
-This application is a graphical animation of the classic Producer-Consumer problem in Computer Science. The system was built as part of the dissertation project while studying for an MSc in Computer Science from Newcastle University.
+This application animates a multiple buffer solution to the classic Producer-Consumer problem in Computer Science. The system was built as part of the dissertation project while studying for an MSc in Computer Science from Newcastle University.
 
-The application was developed as a teaching tool to assist students in understanding how mutual exclusion synchronisation and condition
-synchronisation can be used to control threads accessing a shared resource. The system used both techniques in solving the producer consumer problem as well as simulating the techniques in a GUI.
-
-Knowldege Gained:
-
-
-An understanding of mutual exclusion synchronisation and condition synchronisation.
-An understanding of the Java Memory Model.
-
-The project is a collection of classes that could be used for the development of a Car Rental System application. The project demonstrates the developers understanding of object oriented programming and the ability to build and test simple algorithms. Each class within the project was refactored according to the rules of clean code.
-
-TDD life-cycle was used in the development of the project to ensure every method was accurate. This was achieved using JUnit testing framework. The Builder Pattern was used to construct the objects for the Unit Tests. Each test class was developed and improved to achieve the highest possible code coverage using EclEmma the Java code coverage tool for eclipse. Using EclEmma the result of the coverage session is directly visible in the Java source code highlighting the areas of code which were executed or not executed. The developer used this feature to test specific areas within each method ensuring each algorithm functioned accurately for different input values.
+The application was developed to be used as a teaching tool to assist students in understanding how mutual exclusion synchronisation and condition synchronisation can be used to control threads accessing a shared resource. The system used both techniques in solving the Producer-Consumer problem as well as simulating the techniques in a GUI. The two forms of synchronisation were implemented using Java's built in Monitor. A Monitor consists of a single lock and provides methods that allow threads to communicate and wait for a certain condition before being allowed to continue, or to signal to other threads that a condition may now be met.
 
 Features:
 
-Use of static factory methods.
-Defensive program techniques - ensuring incorrect values don't enter the system.
-Developing simple testable methods.
-Combining methods to produce simple algorithms.
-Readble Code.
+Use of Java Monitor in achieving thread synchronisation.
+Use of Java Swing framework to provide the GUI
+Understanding of the Java-Memory-Model
+
