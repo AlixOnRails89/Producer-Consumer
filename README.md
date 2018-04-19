@@ -1,8 +1,15 @@
 # Producer-Consumer
 
-This is a graphical animation of the Producer-Consumer problem.
+This application is a graphical animation of the classic Producer-Consumer problem in Computer Science. The system was built as part of the dissertation project while studying for an MSc in Computer Science from Newcastle University.
 
-Project completed while studying for MSc Computer Science from Newcastle University.
+The application was developed as a teaching tool to assist students in understanding how mutual exclusion synchronisation and condition
+synchronisation can be used to control threads accessing a shared resource. The system used both techniques in solving the producer consumer problem as well as simulating the techniques in a GUI.
+
+Knowldege Gained:
+
+
+An understanding of mutual exclusion synchronisation and condition synchronisation.
+An understanding of the Java Memory Model.
 
 The project is a collection of classes that could be used for the development of a Car Rental System application. The project demonstrates the developers understanding of object oriented programming and the ability to build and test simple algorithms. Each class within the project was refactored according to the rules of clean code.
 
